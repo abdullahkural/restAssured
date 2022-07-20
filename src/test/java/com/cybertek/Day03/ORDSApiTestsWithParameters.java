@@ -56,7 +56,7 @@ public class ORDSApiTestsWithParameters {
     Send a GET request to employees and get only employees who works as a IT_PROG
      */
 
-    @DisplayName("GET request /countries with Query Param")
+    @DisplayName("GET request /countries with Query Params")
     @Test
     public void test2(){
         Response response = given().accept(ContentType.JSON).
@@ -64,6 +64,30 @@ public class ORDSApiTestsWithParameters {
                 .when().get(baseURI + "/employees");
         assertEquals(200, response.statusCode());
         assertEquals("application/json", response.header("Content-Type"));
+        assertTrue(response.body().asString().contains("IT_PROG"));
+
+    }
+
+    //== TASK03 ======================================================================================================================================================================================
+
+
+    /*
+    Task03
+    Send a GET request to employees and get only employees who works as a IT_PROG and salary = 9000
+     */
+
+    @DisplayName("GET request /countries with Query Param")
+    @Test
+    public void test3(){
+        Response response = given().accept(ContentType.JSON).
+                and().queryParam("q", "{\"job_id\":\"IT_PROG\"}").
+                and().queryParam("q", "{\"salary\":9000}").
+                log().all()
+                .when().get(baseURI + "/employees");
+
+        assertEquals(200, response.statusCode());
+        assertEquals("application/json", response.header("Content-Type"));
+        assertTrue(response.body().asString().contains("IT_PROG"));
 
     }
 }
