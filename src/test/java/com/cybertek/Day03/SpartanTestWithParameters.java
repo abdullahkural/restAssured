@@ -54,6 +54,7 @@ public class SpartanTestWithParameters {
     And "Not Found" should be in response payload
      */
 
+    @DisplayName("GET request to /api/spartans/{id} Negative Test")
     @Test
     public void test2(){
 
@@ -62,6 +63,35 @@ public class SpartanTestWithParameters {
         assertEquals(404, response.getStatusCode());
         assertEquals("application/json", response.contentType());
         assertTrue(response.body().asString().contains("Not Found"));
+    }
+
+
+    /*
+    Task03
+    Given accept type is Json
+    And query parameter values are:
+        gender|Female
+        nameConsists|e
+    When user sends GET request to /api/spartans/search
+    Then response status code should be 200
+    And response content-type: application/json
+    And "Female" should be in response payload
+    And "Janette" should be in response payload
+     */
+
+    @Test
+    public void test3(){
+        Response response = given().log().all().
+                                                accept(ContentType.JSON).
+                                                                        and().queryParam("gender", "Female").
+                                                                                                                        and().queryParam("nameContains", "e").
+                                                                                                                                                                         get(baseURI+ "/api/spartans/search");
+    //  {{spartanUrl}}/api/spartans/search?nameContains=e&Gender=Female  ---> in the Postman
+    //  http://54.91.11.180:8000/api/spartans/search?gender=Female&nameContains=e
+
+        assertEquals(200, response.statusCode());
+        assertEquals("application/json", response.contentType());
+        assertTrue(response.body().asString().contains("Female") && response.body().asString().contains("e"));
     }
 
 
