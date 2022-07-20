@@ -5,6 +5,9 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
 import static io.restassured.RestAssured.*;
 import static io.restassured.RestAssured.baseURI;
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,6 +59,32 @@ public class SpartanTestWithPath {
         assertEquals("Melania", name);
         assertEquals("Female", gender);
         assertEquals(8916944276L, phone);
+
+
+    }
+
+    @DisplayName("GET all spartan and navigate with Path()")
+    @Test
+    public void test2(){
+        Response response = given().accept(ContentType.JSON).when().get("/api/spartans");
+
+        //response.prettyPrint();
+
+        //all spartans are in a list. And if I call them with path("xxx[1]"), then I can cal x'th value
+
+        int firstID = response.path("id[1]");
+        System.out.println("firstID = " + firstID);
+
+        String firstName = response.path("name[1]");
+        System.out.println("firstName = " + firstName);
+
+        String lastName = response.path("name[-1]");
+        System.out.println("lastName = " + lastName);
+
+        List <String> names = response.path("name");
+        for (String name : names) {
+            System.out.println(name);
+        }
 
 
     }
