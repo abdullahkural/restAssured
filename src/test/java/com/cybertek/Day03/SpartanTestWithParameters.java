@@ -44,4 +44,25 @@ public class SpartanTestWithParameters {
     }
 
 
+    /*
+    Task02
+    Given accept type is Json
+    And ID parameter value is 500
+    When user sends GET request to /api/spartans/{id}
+    Then response status code should be 404
+    And response content-type: application/json
+    And "Not Found" should be in response payload
+     */
+
+    @Test
+    public void test2(){
+
+        Response response = given().accept(ContentType.JSON).pathParams("id",500).when().get(baseURI + "/api/spartans/{id}");
+
+        assertEquals(404, response.getStatusCode());
+        assertEquals("application/json", response.contentType());
+        assertTrue(response.body().asString().contains("Not Found"));
+    }
+
+
 }
