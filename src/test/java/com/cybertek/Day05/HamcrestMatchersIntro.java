@@ -104,6 +104,8 @@ public class HamcrestMatchersIntro {
 
         //check if all numbers are greater than 0
         assertThat(listOfNumbers, everyItem(greaterThan(0)));
-        assertThat(listOfNumbers, equalTo(is(lessThan(99))));
+        assertThat(listOfNumbers, everyItem(is(lessThan(99))));
     }
+
+
 }
