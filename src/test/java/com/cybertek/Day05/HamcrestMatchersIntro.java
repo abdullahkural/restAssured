@@ -99,6 +99,11 @@ public class HamcrestMatchersIntro {
         //check if this list hasItem(77)
         assertThat(listOfNumbers, hasItem(77));
 
-        //
+        //check if this list hasItems 77,54,23
+        assertThat(listOfNumbers, hasItems(77,54,23));
+
+        //check if all numbers are greater than 0
+        assertThat(listOfNumbers, everyItem(greaterThan(0)));
+        assertThat(listOfNumbers, equalTo(is(lessThan(99))));
     }
 }
