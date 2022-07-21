@@ -20,14 +20,22 @@ public class HamcrestMatchersIntro {
         assertThat(5+5, Matchers.equalTo(10));
         assertThat(5+5, Matchers.is(Matchers.equalTo(10)));
 
-        /*
-        The instructor asserted like:
-        assertThat(5+5, is(10));
-        assertThat(5+5, equalTo(10));
-        assertThat(5+5, is(equalTo(10)));
+        //matchers has 2 overloaded version
+        //first that accept actual value
+        //second that accept another matchers
+        //below examples is() method is accepting another matchers equal to make it readable
+        assertThat(2+2, is(equalTo(4)));
 
-        But I could not. I can not import
-         */
+        //negative testing
+        assertThat(5+5, not(9));
+        assertThat(5+5, is(not(9)));
+        assertThat(5+5, is(not(equalTo(9))));
+
+        //number comparison
+
+
+
+
 
     }
 }
