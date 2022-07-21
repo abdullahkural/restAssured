@@ -68,7 +68,19 @@ public class HamcrestMatchersIntro {
         assertThat(text, endsWith("much"));
         assertThat(text,endsWithIgnoringCase("MuCh"));
 
-        
+        //check if text contains String learning
+        assertThat(text, containsString("earn"));
+        //with ignoring case
+        assertThat(text,containsStringIgnoringCase("TOO"));
+
+        String str = "";
+
+        //check if above str is blank
+        assertThat(str, is(blankString()));
+        assertThat(str, blankString());
+        //check if trimmed str is empty String
+        assertThat(str, is(emptyString()));
+        assertThat(str, emptyString());
 
     }
 }
