@@ -58,4 +58,42 @@ public class HamcrestMatchersApiTest extends SpartanTestBase {
                         "phone", is(1938695106));
 
     }
+
+
+    @DisplayName("CBTraining Teacher request with chaining with and matchers")
+    @Test
+    public void test2(){
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
