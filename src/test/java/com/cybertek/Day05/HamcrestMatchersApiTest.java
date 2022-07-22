@@ -19,6 +19,7 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 
 
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -84,6 +85,21 @@ public class HamcrestMatchersApiTest extends SpartanTestBase {
     @DisplayName("Get Request to teacher/all and chaining")
     @Test
     public void test3(){
+
+        //verify "Leonel", "Regena", "Courtney" inside the all teachers
+
+        given()
+                .accept(ContentType.JSON)
+        .when()
+                .get("http://api.cybertektraining.com/teacher/all")
+        .then()
+                .statusCode(200)
+                .contentType("application/json;charset=UTF-8")
+                .and().header("Date", notNullValue())
+                .and().header("Content-Encoding", "gzip")
+                .and().body("teachers.firstName", hasItems("Leonel", "Regena", "Courtney"));
+
+        //"teachers.firstName" are going to return a list of all teacher names
 
     }
 
