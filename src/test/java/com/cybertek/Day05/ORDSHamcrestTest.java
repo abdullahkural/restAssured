@@ -27,6 +27,8 @@ public class ORDSHamcrestTest extends HRTestBase {
         //verify first names are "Alexander", "Bruce" (find proper method to check list against list)
         //verify emails without checking order (provide emails in different order, just make sure it has same emails)
 
+        List <String> names = Arrays.asList("Alexander", "Bruce", "David", "Valli", "Diana");
+
         given()
                 .accept(ContentType.JSON)
                 .and().queryParam("q", "{\"job_id\":\"IT_PROG\"}")
@@ -45,14 +47,27 @@ public class ORDSHamcrestTest extends HRTestBase {
 
                 .body("items.email", hasItems("AHUNOLD","BERNST"))
                 .body("items.email", containsInAnyOrder("BERNST", "AHUNOLD", "VPATABAL", "DAUSTIN", "DLORENTZ"))
-                .body("items.email", containsInRelativeOrder("AHUNOLD", "BERNST", "DAUSTIN", "VPATABAL", "DLORENTZ"));
+                .body("items.email", containsInRelativeOrder("AHUNOLD", "BERNST", "DAUSTIN", "VPATABAL", "DLORENTZ"))
+                .body("items.first_name", equalTo(names));
 
                 //containsInAnyOrder isimlerine bakarken o isimlerin sirasi ile ilgilenmiyor
                 //containsInRelativeOrder "Alexander", "Bruce", "David", "Valli", "Diana" isimlerinin isim listesi icinde bu sirada olup olmadigina bakiyor
 
+    }
 
 
+    @Test
+    public void employeesTest2(){
+        //we want to chain and also get response object
 
+        given()
+                .accept(ContentType.JSON)
+                .and().queryParam("q", "{\"job_id\":\"IT_PROG\"}")
+        .when()
+                .get(baseURI + "/employees")
+        .then()
+                .statusCode(200)
+                .body("items.job_id", everyItem(equalTo("IT_PROG")));
 
     }
 }
