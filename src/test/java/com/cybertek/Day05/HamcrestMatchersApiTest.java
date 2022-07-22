@@ -64,6 +64,21 @@ public class HamcrestMatchersApiTest extends SpartanTestBase {
     @Test
     public void test2(){
 
+        given()
+                .accept(ContentType.JSON)
+                .and().pathParam("id", 21887)
+        .when().get("http://api.cybertektraining.com/teacher/{id}")
+        .then()
+                .statusCode(200).and()
+                .contentType("application/json;charset=UTF-8")
+                .and().header("Content-Length", is("275"))
+                .and().header("Date", notNullValue())
+                .and().assertThat()
+                .body("teachers[0].firstName", is("Leonel"))
+                .body("teachers[0].lastName", is("Messi"))
+                .body("teachers[0].gender", is("Male"))
+                .body("teachers[0].section", is("OK"));
+
     }
 
 
