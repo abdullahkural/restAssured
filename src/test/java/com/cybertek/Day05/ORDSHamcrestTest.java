@@ -2,9 +2,8 @@ package com.cybertek.Day05;
 
 import com.cybertek.utilities.HRTestBase;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.DisplayName;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.*;
@@ -60,14 +59,45 @@ public class ORDSHamcrestTest extends HRTestBase {
     public void employeesTest2(){
         //we want to chain and also get response object
 
-        given()
+        //extract() is a method that allows us to get response object after we use then() method
+        Response response = given()
                 .accept(ContentType.JSON)
                 .and().queryParam("q", "{\"job_id\":\"IT_PROG\"}")
-        .when()
+                .when()
                 .get(baseURI + "/employees")
-        .then()
+                .then()
                 .statusCode(200)
-                .body("items.job_id", everyItem(equalTo("IT_PROG")));
+                .body("items.job_id", everyItem(equalTo("IT_PROG"))).extract().response();
+
+        //.extract().response() --> It gives you to return response or jsonPath or what you want to return
+        // .extract() ile assertion yaparken ayni zamanda response alabiliriz
+
+        response.prettyPrint();
+
+        //with extract().response().statusCode() at the end we can get the status code and assign to a integer value
+        int statusCode = given()
+                .accept(ContentType.JSON)
+                .and().queryParam("q", "{\"job_id\":\"IT_PROG\"}")
+                .when()
+                .get(baseURI + "/employees")
+                .then()
+                .statusCode(200)
+                .body("items.job_id", everyItem(equalTo("IT_PROG"))).extract().response().statusCode();
+
+        //assertThat we have only 5 first names
+        JsonPath jsonPath = given().accept(ContentType.JSON)
+                .and().queryParam("q", "{\"job_id\":\"IT_PROG\"}")
+                .when()
+                .get("/employees")
+                .then()
+                .statusCode(200)
+                .body("items.job_id", everyItem(equalTo("IT_PROG")))
+                .extract().jsonPath();
+
+        assertThat(jsonPath.getList("items.first_name"), hasSize(5));
+
+        //assert firstnames order
+        assertThat(jsonPath.getList("items.first_name"), containsInRelativeOrder("Alexander", "Bruce", "David", "Valli", "Diana"));
 
     }
 }
