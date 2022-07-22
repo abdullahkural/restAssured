@@ -81,6 +81,12 @@ public class HamcrestMatchersApiTest extends SpartanTestBase {
 
     }
 
+    @DisplayName("Get Request to teacher/all and chaining")
+    @Test
+    public void test3(){
+
+    }
+
 
 
 
