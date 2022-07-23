@@ -28,7 +28,13 @@ public class JsonToJavaTest extends SpartanTestBase {
 
         //get the json and convert it to the map
 
-        Map <String, Object> jasonMap = response.as(Map.class);
+        Map <String, Object> jsonMap = response.as(Map.class);
+
+        System.out.println("jsonMap.toString() = " + jsonMap.toString());
+
+        String actualName = (String) jsonMap.get("name");
+        assertThat(actualName, is(equalTo("Meta")));
+
 
     }
 
