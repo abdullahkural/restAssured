@@ -38,6 +38,12 @@ public class JsonToJavaTest extends SpartanTestBase {
 
     }
 
+    @DisplayName("Get all Spartans to Java")
+    @Test
+    public void getAllSpartans(){
+
+    }
+
 
 
 
