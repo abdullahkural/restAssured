@@ -42,6 +42,16 @@ public class JsonToJavaTest extends SpartanTestBase {
     @Test
     public void getAllSpartans(){
 
+        Response response = get(baseURI + "/api/spartans")
+                .then().statusCode(200).extract().response();
+
+        //Spartans are Maps in a List so that:
+        List <Map <String, Object>> jsonList = response.as(List.class);
+
+        //System.out.println(jsonList.toString());
+        //We can get the name in the first Map:
+        System.out.println("jsonList.get(1).get(\"name\") = " + jsonList.get(1).get("name"));
+
     }
 
 
